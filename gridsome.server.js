@@ -11,5 +11,9 @@ module.exports = function (api) {
     const sauce = addCollection('Sauce')
     const user = addCollection('User')
     const review = addCollection('Review')
+
+    // And our references
+    review.addReference('sauce', 'Sauce')
+    review.addReference('user', 'User')
   })
 }
