@@ -8,7 +8,7 @@
 const axios = require('axios')
 
 module.exports = function (api) {
-  api.loadSource(async ({ addCollection }) => {
+  api.loadSource(async ({ addCollection, addSchemaResolvers, getCollection }) => {
 
     const apiUrl = process.env.API_URL
 
@@ -57,5 +57,19 @@ module.exports = function (api) {
       })
     }
 
+    addSchemaResolvers({
+      Sauce: {
+        averageReview: {
+          type: 'Int',
+          resolve: (obj) => {
+            // The ID is cast to a string by Graphql but it's stored as an integer.
+            const sauceReviews = getCollection('Review').findNodes({'sauce': parseInt(obj.id)})
+            const totalStars = sauceReviews.reduce((acc, review) => acc + review.stars, 0)
+            const average = totalStars / sauceReviews.length
+            return Math.ceil(average)
+          }
+        }
+      }
+    })
   })
 }

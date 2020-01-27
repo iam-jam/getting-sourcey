@@ -3,6 +3,7 @@
     <section>
       <article class="sauce">
         <h1>{{ $page.sauce.name }}</h1>
+        <rating :stars="$page.sauce.averageReview " />
         <img class="sauce__image" :src="$page.sauce.image" />
         <p>£{{ $page.sauce.price }}</p>
       </article>
@@ -17,8 +18,8 @@
       >
         <img class="review-list-item__image" :src="review.node.user.image" />
         <div>
-          <p>{{ review.node.date }}</p>
-          <p>{{ review.node.stars }}</p>
+          <rating :stars="review.node.stars" />
+          <p class="review-list-item__date">{{ review.node.date }}</p>
           <h3>{{ review.node.review }}</h3>
         </div>
       </article>
@@ -26,12 +27,22 @@
   </Layout>
 </template>
 
+<script>
+import Rating from '@/components/Rating'
+export default {
+  components: {
+    Rating
+  }
+}
+</script>
+
 <page-query>
 query ($id: ID!) {
   sauce(id: $id) {
     name
     image
     price
+    averageReview
     belongsTo(
       filter: { typeName: { eq: Review } }
       sortBy: "date"

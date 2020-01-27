@@ -4,11 +4,21 @@
       <img class="sauce-list-item__image" :src="sauce.node.image" />
       <div>
         <h2><g-link :to="sauce.node.path">{{ sauce.node.name }}</g-link></h2>
+        <rating :stars="sauce.node.averageReview " />
         <p>£{{ sauce.node.price }}</p>
       </div>
     </article>
   </Layout>
 </template>
+
+<script>
+import Rating from '@/components/Rating'
+export default {
+  components: {
+    Rating
+  }
+}
+</script>
 
 <page-query>
 query {
@@ -20,6 +30,7 @@ query {
         name
         image
         price
+        averageReview
       }
     }
   }
