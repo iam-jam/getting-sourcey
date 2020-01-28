@@ -51,7 +51,7 @@ query ($id: ID!) {
   sauce(id: $id) {
     name
     image
-    price
+    price(decimalPlaces: 2)
     averageReview
     relatedSauces {
       name

@@ -79,6 +79,18 @@ module.exports = function (api) {
               ]
             })
           }
+        },
+        price: {
+          type: 'String',
+          args: {
+            decimalPlaces: 'Int'
+          },
+          resolve(obj, args) {
+            if (args.decimalPlaces) {
+              return obj.price.toFixed(args.decimalPlaces)
+            }
+            return obj.price
+          }
         }
       }
     })

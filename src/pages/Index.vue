@@ -29,7 +29,7 @@ query {
         path
         name
         image
-        price
+        price(decimalPlaces: 2)
         averageReview
       }
     }
