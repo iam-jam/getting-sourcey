@@ -24,6 +24,16 @@
         </div>
       </article>
     </section>
+
+    <section v-if="$page.sauce.relatedSauces.length > 0">
+      <h2>Other sauces you might like...</h2>
+      <article
+        class="related-sauce-item"
+        v-for="sauce in $page.sauce.relatedSauces"
+        :key="sauce.id">
+        <h3><g-link :to="sauce.path">{{ sauce.name }}</g-link></h3>
+        </article>
+    </section>
   </Layout>
 </template>
 
@@ -43,6 +53,11 @@ query ($id: ID!) {
     image
     price
     averageReview
+    relatedSauces {
+      name
+      image
+      path
+    }
     belongsTo(
       filter: { typeName: { eq: Review } }
       sortBy: "date"

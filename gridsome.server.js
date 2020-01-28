@@ -68,8 +68,20 @@ module.exports = function (api) {
             const average = totalStars / sauceReviews.length
             return Math.ceil(average)
           }
+        },
+        relatedSauces: {
+          type: '[Sauce]',
+          resolve: (obj) => {
+            return getCollection('Sauce').findNodes({
+              '$and': [
+                {'tags': { '$containsAny': obj.tags }},
+                {'id': {'$ne' : obj.id}}
+              ]
+            })
+          }
         }
       }
     })
+
   })
 }
