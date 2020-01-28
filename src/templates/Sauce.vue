@@ -77,4 +77,7 @@ query ($id: ID!) {
   flex-grow: 0;
   margin-right: 1rem;
 }
+.review-list-item__date {
+  font-size: 0.9em;
+}
 </style>
